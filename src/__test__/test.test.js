@@ -28,7 +28,7 @@ describe("<NotFound />", () => {
 
 describe("Login Form", () => {
     it("submits form when buttion is clicked", () => {
-        const obSubmit = jest.fn();
+        const obSubmit = jest.fn(e => e.preventDefault());
         const { getByText, getByLabelText } = render(
             <LoginForm onSubmit={obSubmit} />
         );
@@ -41,7 +41,7 @@ describe("Login Form", () => {
         fireEvent.change(password, { target: { value: "Test1234" } });
       
         fireEvent.click(button);
-      
+              
         expect(obSubmit).toHaveBeenCalledTimes(1);
     });
 });
