@@ -1,9 +1,12 @@
 import * as actions from '../actions';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import {Value} from './Value';
 import { Control } from './Control';
 
 function Counter(props) {
+    const dispatch = useDispatch();
+    const number = useSelector((state) => state.counter.number)
+    
     const setRandomColor = () => {
         const color = [
             Math.floor((Math.random() * 55) + 200),
@@ -21,9 +24,9 @@ function Counter(props) {
 
     return (
         <div style={style}>
-            <Value number={props.number}/>
+            <Value number={number}/>
             <Control
-                onPlus={props.handleIncrement}
+                onPlus={() => dispatch(actions.increment())}
                 onSubtract={props.handleDecrement}
                 onRandomizeColor={setRandomColor}
                 onRedColor={props.handleRedColor}
@@ -35,14 +38,14 @@ function Counter(props) {
 
 const mapStateProps = (state) => {
     return {
-        number: state.counter.number,
+        // number: state.counter.number,
         color: state.ui.color
     };
 };
 
 const mapDispatchProps = (dispatch) =>  {
     return {
-        handleIncrement: () => { dispatch(actions.increment())},
+        // handleIncrement: () => { dispatch(actions.increment())},
         handleDecrement: () => { dispatch(actions.decrement())},
         handleSetColor: (color) => { dispatch(actions.setColor(color))},
         handleRedColor: () => { dispatch(actions.setRedColor())},
