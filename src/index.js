@@ -5,6 +5,8 @@ import App from './App';
 
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { createLogger } from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
 
 import {reducers} from './reducers';
 import rootSaga from './sagas';
@@ -13,10 +15,13 @@ import { Provider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
 
+const logger = createLogger();
+
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(reducers,
-				applyMiddleware(sagaMiddleware)
+				applyMiddleware(sagaMiddleware, ReduxThunk, logger)
 	);
 
 sagaMiddleware.run(rootSaga);

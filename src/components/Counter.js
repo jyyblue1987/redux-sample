@@ -2,6 +2,7 @@ import * as actions from '../actions';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {Value} from './Value';
 import { Control } from './Control';
+import { useState } from 'react';
 
 function Counter(props) {
     const dispatch = useDispatch();
@@ -16,6 +17,8 @@ function Counter(props) {
 
         props.handleSetColor(color);        
     }
+
+
 
     const color = props.color;
     const style = {
@@ -32,6 +35,19 @@ function Counter(props) {
                 onRedColor={props.handleRedColor}
                 onGreenColor={props.handleGreenColor}
             />
+            <br />
+            <br />
+            <div>Async Call using <b>Redux Thunk</b></div>
+
+            <Control
+                onPlus={() => dispatch(actions.incrementAsync())}
+                onSubtract={() => dispatch(actions.decrementAsync())}
+                onRandomizeColor={setRandomColor}
+                onRedColor={props.handleRedColor}
+                onGreenColor={props.handleGreenColor}
+            />
+            <br />
+            <br />
         </div>
     );
  }
